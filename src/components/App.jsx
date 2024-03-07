@@ -1,5 +1,7 @@
 import React from 'react';
 
+import 'components/App.styled.css';
+
 export class App extends React.Component {
     state = {
         good: 0,
@@ -7,90 +9,94 @@ export class App extends React.Component {
         bad: 0,
     };
 
-    key = "good"
-
-    // ================== STYLES
-    stylesContainer = {
-        marginRight: '40px',
-        marginLeft: '40px',
-    };
-
-    stylesListBtn = {
-        display: 'flex',
-        paddingBottom: '16px',
-        listStyle: 'none',
-        borderBottom: '1px solid black',
-    };
-
-    stylesListBtnItem = {
-        marginRight: '24px',
-    };
-
-    stylesBtn = {
-        width: '180px',
-        height: '60px',
-        cursor: 'pointer',
-        outline: 'none',
-        backgroundColor: 'transparent',
-        boxShadow: "0px 2px 12px rgba(46, 47, 66, 0.08), 0px 2px 2px rgba(46, 47, 66, 0.16), 0px 4px 2px rgba(46, 47, 66, 0.08)",
-        color: 'white',
-        fontSize: '18px',
-        fontWeight: '100',
-    };
-
-    stylesListParagraph = {
-        listStyle: 'none',
-    };
-    // ================== /STYLES
-
     // ================== LOGIC
-    handlerClick = (evt) => {
+    addFeedback = evt => {
         const keyValue = evt.currentTarget.name;
-        
-        this.setState((prevState) => ({
+
+        this.setState(prevState => ({
             [keyValue]: prevState[keyValue] + 1,
         }));
     };
+
+    countTotalFeedback = () => {
+        const { good, neutral, bad } = this.state;
+        return good + neutral + bad;
+    };
+
+    countPositiveFeedbackPercentage = () =>
+        this.countTotalFeedback() !== 0
+            ? Math.round((this.state.good / this.countTotalFeedback()) * 100)
+            : 0;
     // ================== /LOGIC
 
     render() {
         return (
-            <div style={this.stylesContainer}>
+            <div className={'container'}>
                 <h1>Please leave feedback</h1>
-                <ul style={this.stylesListBtn}>
-                    <li style={this.stylesListBtnItem}>
-                        <button
-                            name={'good'}
-                            onClick={this.handlerClick}
-                            type="button"
-                            style={this.stylesBtn}
-                        >
-                            Good
-                        </button>
+                <ul className={'list-btn'}>
+                    <li className={'list-btn-item'}>
+                        <div className="wrapper">
+                            <button
+                                name={'good'}
+                                onClick={this.addFeedback}
+                                type="button"
+                                className={'btn'}
+                            >
+                                <svg
+                                    width="180px"
+                                    height="60px"
+                                    viewBox="0 0 180 60"
+                                >
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                </svg>
+                                Good
+                            </button>
+                        </div>
                     </li>
-                    <li style={this.stylesListBtnItem}>
-                        <button
-                            name={'neutral'}
-                            onClick={this.handlerClick}
-                            type="button"
-                            style={this.stylesBtn}
-                        >
-                            Neutral
-                        </button>
+                    <li className={'list-btn-item'}>
+                        <div className="wrapper">
+                            <button
+                                name={'neutral'}
+                                onClick={this.addFeedback}
+                                type="button"
+                                className={'btn'}
+                            >
+                                <svg
+                                    width="180px"
+                                    height="60px"
+                                    viewBox="0 0 180 60"
+                                >
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                </svg>
+                                Neutral
+                            </button>
+                        </div>
                     </li>
                     <li>
-                        <button
-                            name={'bad'}
-                            onClick={this.handlerClick}
-                            type="button"
-                            style={this.stylesBtn}
-                        >
-                            Bad
-                        </button>
+                        <div className="wrapper">
+                            <button
+                                name={'bad'}
+                                onClick={this.addFeedback}
+                                type="button"
+                                className={'btn'}
+                            >
+                                <svg
+                                    width="180px"
+                                    height="60px"
+                                    viewBox="0 0 180 60"
+                                >
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
+                                </svg>
+                                Bad
+                            </button>
+                        </div>
                     </li>
                 </ul>
                 <h2>Statistics</h2>
-                <ul style={this.stylesListParagraph}>
+                <ul className={'list-paragraph'}>
                     <li>
                         <p>Good: {this.state.good}</p>
                     </li>
@@ -99,6 +105,12 @@ export class App extends React.Component {
                     </li>
                     <li>
                         <p>Bad: {this.state.bad}</p>
+                    </li>
+                    <li>
+                        <p>Total: {this.countTotalFeedback()}</p>
+                    </li>
+                    <li>
+                        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}</p>
                     </li>
                 </ul>
             </div>
