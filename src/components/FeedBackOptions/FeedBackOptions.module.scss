@@ -1,0 +1,79 @@
+.container {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.list{
+    &-btn {
+        display: flex;
+        height: 60px;
+        padding-bottom: 16px;
+        list-style: none;
+        border-bottom: 1px solid black;
+
+        &-item {
+            &:nth-child(1) {
+                margin-right: 204px;
+            }
+
+            &:nth-child(2) {
+                margin-right: 204px;
+            }
+        }
+    }
+}
+
+.wrapper {
+    width: 180px;
+    height: 60px;
+    position: absolute;
+}
+
+.btn {
+    width: 180px;
+    height: 60px;
+    cursor: pointer;
+    background: #5CA4EA;
+    border: 1px solid #91C9FF;
+    outline: none;
+    transition: 250ms ease-in-out;
+    font-size: 18px;
+    font-weight: 100;
+    color: white;
+
+    &:hover {
+        transition: 250ms ease-in-out;
+        background-color: #4F95DA;
+
+        svg {
+            stroke-dashoffset: -480;
+        }
+    }
+}
+
+svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: none;
+    stroke: #fff;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    top: 16px;
+    fill: white;
+
+    
+    &--1 {
+        left: 24px;
+    }
+
+    &--2 {
+        left: 132px;
+    }
+}

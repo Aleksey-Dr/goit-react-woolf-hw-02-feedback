@@ -1,6 +1,10 @@
 import React from 'react';
 
-import 'components/App.styled.css';
+import Section from 'components/Section';
+import Statistics from 'components/Statistics';
+import FeedBackOptions from 'components/FeedBackOptions';
+
+import css from 'components/App.module.scss';
 
 export class App extends React.Component {
     state = {
@@ -10,11 +14,9 @@ export class App extends React.Component {
     };
 
     // ================== LOGIC
-    addFeedback = evt => {
-        const keyValue = evt.currentTarget.name;
-
+    addFeedback = feedback => {
         this.setState(prevState => ({
-            [keyValue]: prevState[keyValue] + 1,
+            [feedback]: prevState[feedback] + 1,
         }));
     };
 
@@ -31,89 +33,21 @@ export class App extends React.Component {
 
     render() {
         return (
-            <div className={'container'}>
-                <h1>Please leave feedback</h1>
-                <ul className={'list-btn'}>
-                    <li className={'list-btn-item'}>
-                        <div className="wrapper">
-                            <button
-                                name={'good'}
-                                onClick={this.addFeedback}
-                                type="button"
-                                className={'btn'}
-                            >
-                                <svg
-                                    width="180px"
-                                    height="60px"
-                                    viewBox="0 0 180 60"
-                                >
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                </svg>
-                                Good
-                            </button>
-                        </div>
-                    </li>
-                    <li className={'list-btn-item'}>
-                        <div className="wrapper">
-                            <button
-                                name={'neutral'}
-                                onClick={this.addFeedback}
-                                type="button"
-                                className={'btn'}
-                            >
-                                <svg
-                                    width="180px"
-                                    height="60px"
-                                    viewBox="0 0 180 60"
-                                >
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                </svg>
-                                Neutral
-                            </button>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="wrapper">
-                            <button
-                                name={'bad'}
-                                onClick={this.addFeedback}
-                                type="button"
-                                className={'btn'}
-                            >
-                                <svg
-                                    width="180px"
-                                    height="60px"
-                                    viewBox="0 0 180 60"
-                                >
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" />
-                                </svg>
-                                Bad
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <h2>Statistics</h2>
-                <ul className={'list-paragraph'}>
-                    <li>
-                        <p>Good: {this.state.good}</p>
-                    </li>
-                    <li>
-                        <p>Neutral: {this.state.neutral}</p>
-                    </li>
-                    <li>
-                        <p>Bad: {this.state.bad}</p>
-                    </li>
-                    <li>
-                        <p>Total: {this.countTotalFeedback()}</p>
-                    </li>
-                    <li>
-                        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}</p>
-                    </li>
-                </ul>
+            <div className={css.container}>
+                <Section title={'Please leave feedback'}>
+                    <FeedBackOptions
+                        options={Object.keys(this.state)}
+                        onLeaveFeedback={this.addFeedback}
+                    />
+                </Section>
+                <Section title={'Statistics'}>
+                    <Statistics
+                        feedbacks={this.state}
+                        total={this.countTotalFeedback()}
+                        positivePercentage={this.countPositiveFeedbackPercentage()}
+                    />
+                </Section>
             </div>
         );
-    }
-}
+    };
+};
