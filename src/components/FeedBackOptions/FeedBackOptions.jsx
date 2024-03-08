@@ -31,7 +31,7 @@ const FeedBackOptions = ({ options, onLeaveFeedback }) => {
                                     />
                                 )}
                                 {option.charAt(0).toUpperCase() + option.slice(1)}
-                                {option === 'goog' ? (
+                                {option === 'good' ? (
                                     <BiSolidLike
                                         className={`${css.icon} ${css['icon--2']}`}
                                     />
